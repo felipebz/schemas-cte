@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ns1="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:include schemaLocation="eventoCTeTiposBasico_v2.00.xsd"/>
+	<xs:include schemaLocation="eventoCTeTiposBasico_v3.00.xsd"/>
 	<xs:element name="evEPECCTe">
 		<xs:annotation>
 			<xs:documentation>Schema XML de validação do evento de emissão prévia de emissão em contingência 
@@ -41,7 +41,7 @@
 						<xs:documentation>Dever ser informado para todos os modais, com exceção para o Dutoviário.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="toma04">
+				<xs:element name="toma4">
 					<xs:annotation>
 						<xs:documentation>Indicador do "papel" do tomador do serviço no CT-e</xs:documentation>
 					</xs:annotation>
@@ -123,6 +123,22 @@ Informar os zeros não significativos.</xs:documentation>
 						<xs:documentation>UF do término da prestação</xs:documentation>
 						<xs:documentation>Informar 'EX' para operações com o exterior.</xs:documentation>
 					</xs:annotation>
+				</xs:element>
+				<xs:element name="tpCTe">
+					<xs:annotation>
+						<xs:documentation>Tipo do CT-e - Aceitar apenas Tipo Normal = 0</xs:documentation>
+						<xs:documentation>Preencher com:
+	0 - CT-e Normal;
+ 1 - CT-e de Complemento de Valores;	2 - CT-e de Anulação;
+ 3 - CT-e Substituto</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:length value="1"/>
+							<xs:enumeration value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
 				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
