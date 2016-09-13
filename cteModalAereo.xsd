@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-sofwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:include schemaLocation="tiposGeralCTe_v1.04.xsd"/>
+	<xs:include schemaLocation="tiposGeralCTe_v2.00.xsd"/>
 	<xs:element name="aereo">
 		<xs:annotation>
 			<xs:documentation>Informações do modal Aéreo</xs:documentation>
@@ -23,17 +22,16 @@
 				<xs:element name="nOCA" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Número Operacional do Conhecimento Aéreo</xs:documentation>
-						<xs:documentation>Número Operacional do Conhecimento Aéreo, 14 posições numéricas, não obrigatório.
-						Esse campo será preenchido com o Identificador da Cia Aérea (999), Range identificar (9), Número (999999999) e Dígito verificador (9) </xs:documentation>
+						<xs:documentation>Os três primeiros dígitos representam um código que os operadores de transporte aéreo associados à IATA possuem. Em seguida um número de série de sete dígitos determinados pelo operador de tansporte aéreo. Para finalizar, um dígito verificador</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
 							<xs:whiteSpace value="preserve"/>
-							<xs:pattern value="[0-9]{14}"/>
+							<xs:pattern value="[0-9]{11}"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
-				<xs:element name="dPrev" type="TData">
+				<xs:element name="dPrevAereo" type="TData">
 					<xs:annotation>
 						<xs:documentation>Data prevista da entrega</xs:documentation>
 						<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
@@ -158,7 +156,7 @@ Esse campo deve sempre que possível ser preenchido. Entretanto, quando for impo
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
-							<xs:element name="cIMP" minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="cIMP" maxOccurs="unbounded">
 								<xs:annotation>
 									<xs:documentation>Carga especial</xs:documentation>
 									<xs:documentation>Informar o código Interline Message Procedure - IMP</xs:documentation>

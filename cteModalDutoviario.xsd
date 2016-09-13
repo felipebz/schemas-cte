@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:include schemaLocation="tiposGeralCTe_v1.04.xsd"/>
-	<xs:include schemaLocation="cteTiposBasico_v1.04.xsd"/>
+	<xs:include schemaLocation="tiposGeralCTe_v2.00.xsd"/>
+	<xs:include schemaLocation="cteTiposBasico_v2.00.xsd"/>
 	<xs:element name="duto">
 		<xs:annotation>
 			<xs:documentation>Informações do modal Dutoviário</xs:documentation>

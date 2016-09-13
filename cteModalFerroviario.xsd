@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:include schemaLocation="tiposGeralCTe_v1.04.xsd"/>
-	<xs:include schemaLocation="cteTiposBasico_v1.04.xsd"/>
+	<xs:include schemaLocation="tiposGeralCTe_v2.00.xsd"/>
+	<xs:include schemaLocation="cteTiposBasico_v2.00.xsd"/>
 	<xs:complexType name="TEnderFer">
 		<xs:annotation>
 			<xs:documentation>Tipo Dados do Endereço</xs:documentation>
@@ -247,7 +247,7 @@ Informar os zeros não significativos.</xs:documentation>
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
-							<xs:element name="cap" type="TDec_0302" minOccurs="0">
+							<xs:element name="cap" type="TDec_0303" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>Capacidade em Toneladas</xs:documentation>
 								</xs:annotation>
@@ -262,118 +262,15 @@ Informar os zeros não significativos.</xs:documentation>
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
-							<xs:element name="pesoR" type="TDec_0302">
+							<xs:element name="pesoR" type="TDec_0303">
 								<xs:annotation>
 									<xs:documentation>Peso Real em Toneladas</xs:documentation>
 								</xs:annotation>
 							</xs:element>
-							<xs:element name="pesoBC" type="TDec_0302">
+							<xs:element name="pesoBC" type="TDec_0303">
 								<xs:annotation>
 									<xs:documentation>Peso Base de Cálculo de Frete em Toneladas</xs:documentation>
 								</xs:annotation>
-							</xs:element>
-							<xs:element name="lacDetVag" minOccurs="0" maxOccurs="unbounded">
-								<xs:annotation>
-									<xs:documentation>Lacres dos vagões</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="nLacre">
-											<xs:annotation>
-												<xs:documentation>número do lacre</xs:documentation>
-											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="TString">
-													<xs:minLength value="1"/>
-													<xs:maxLength value="20"/>
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="contVag" minOccurs="0" maxOccurs="unbounded">
-								<xs:annotation>
-									<xs:documentation>informações dos containeres contidos no vagão</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="nCont" type="TContainer">
-											<xs:annotation>
-												<xs:documentation>Identificação do Container</xs:documentation>
-											</xs:annotation>
-										</xs:element>
-										<xs:element name="dPrev" type="TData" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation>Data prevista da entrega</xs:documentation>
-											</xs:annotation>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="ratVag" minOccurs="0">
-								<xs:annotation>
-									<xs:documentation>Rateio dos vagões</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:choice>
-										<xs:element name="ratNF" maxOccurs="unbounded">
-											<xs:annotation>
-												<xs:documentation>Informações do Rateio das NF</xs:documentation>
-											</xs:annotation>
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element name="serie">
-														<xs:annotation>
-															<xs:documentation>Série</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="TString">
-																<xs:minLength value="1"/>
-																<xs:maxLength value="3"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="nDoc">
-														<xs:annotation>
-															<xs:documentation>Número </xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="TString">
-																<xs:minLength value="1"/>
-																<xs:maxLength value="20"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="pesoRat" type="TDec_0302">
-														<xs:annotation>
-															<xs:documentation>Peso rateado</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-												</xs:sequence>
-											</xs:complexType>
-										</xs:element>
-										<xs:element name="ratNFe" maxOccurs="unbounded">
-											<xs:annotation>
-												<xs:documentation>Informações do Rateio das NFe</xs:documentation>
-											</xs:annotation>
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element name="chave" type="TChNFe">
-														<xs:annotation>
-															<xs:documentation>Chave de acesso da NF-e</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="pesoRat" type="TDec_0302">
-														<xs:annotation>
-															<xs:documentation>Peso rateado</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-												</xs:sequence>
-											</xs:complexType>
-										</xs:element>
-									</xs:choice>
-								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
 					</xs:complexType>

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-sofwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:include schemaLocation="tiposGeralCTe_v1.04.xsd"/>
-	<xs:include schemaLocation="cteTiposBasico_v1.04.xsd"/>
+	<xs:include schemaLocation="tiposGeralCTe_v2.00.xsd"/>
+	<xs:include schemaLocation="cteTiposBasico_v2.00.xsd"/>
 	<xs:simpleType name="TRNTRC">
 		<xs:annotation>
 			<xs:documentation>Tipo RNTRC - Registro Nacional Transportadores Rodoviários de Carga</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
-			<xs:pattern value="[0-9]{8}"/>
+			<xs:pattern value="[0-9]{8}|ISENTO"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TPlaca">
@@ -36,12 +35,15 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="RNTRC" type="TRNTRC">
+				<xs:element name="RNTRC">
 					<xs:annotation>
 						<xs:documentation>Registro Nacional de Transportadores Rodoviários de Carga</xs:documentation>
 						<xs:documentation>Registro obrigatório do emitente do CT-e junto à ANTT para exercer a atividade de transportador rodoviário de cargas por conta de terceiros e mediante remuneração.
 						</xs:documentation>
 					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TRNTRC"/>
+					</xs:simpleType>
 				</xs:element>
 				<xs:element name="dPrev" type="TData">
 					<xs:annotation>
@@ -54,7 +56,7 @@
 						<xs:documentation>Indicador de Lotação
 </xs:documentation>
 						<xs:documentation>Preencher com: 0 - Não; 1 - Sim 
-						Obs. Será lotação quando houver apenas 1 tomador do serviço por veículo, ou combinação veicular, e por viagem</xs:documentation>
+						Será lotação quando houver um único conhecimento de transporte por veículo, ou combinação veicular, e por viagem</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
@@ -139,16 +141,10 @@
 												<xs:documentation>Informar EX para operações com o exterior.</xs:documentation>
 											</xs:annotation>
 										</xs:element>
-										<xs:element name="fone" minOccurs="0">
+										<xs:element name="fone" type="TFone" minOccurs="0">
 											<xs:annotation>
 												<xs:documentation>Telefone</xs:documentation>
 											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="TString">
-													<xs:minLength value="7"/>
-													<xs:maxLength value="12"/>
-												</xs:restriction>
-											</xs:simpleType>
 										</xs:element>
 									</xs:sequence>
 								</xs:complexType>
@@ -189,6 +185,12 @@
 									<xs:documentation>CNPJ do responsável pelo pagamento do Vale-Pedágio</xs:documentation>
 									<xs:documentation>- responsável pelo pagamento do Vale Pedágio. Informar somente quando o responsável não for o emitente do CT-e.
 									- Informar os zeros não significativos.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="vValePed" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do Vale-Pedagio</xs:documentation>
+									<xs:documentation>Número de ordem do comprovante de compra do Vale-Pedágio fornecido para cada veículo ou combinação veicular, por viagem.</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 						</xs:sequence>

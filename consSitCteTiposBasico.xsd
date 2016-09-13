@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:include schemaLocation="tiposGeralCTe_v1.04.xsd"/>
-	<xs:include schemaLocation="consReciCteTiposBasico_v1.04.xsd"/>
-	<xs:include schemaLocation="cancCteTiposBasico_v1.04.xsd"/>
-	<xs:include schemaLocation="eventoCTeTiposBasico_v1.04.xsd"/>
+	<xs:include schemaLocation="tiposGeralCTe_v2.00.xsd"/>
+	<xs:include schemaLocation="consReciCTeTiposBasico_v2.00.xsd"/>
+	<xs:include schemaLocation="cancCTeTiposBasico_v1.04.xsd"/>
+	<xs:include schemaLocation="eventoCTeTiposBasico_v2.00.xsd"/>
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:complexType name="TConsSitCTe">
 		<xs:annotation>
@@ -28,7 +28,11 @@
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-		<xs:attribute name="versao" type="TVerConsSitCTe" use="required"/>
+		<xs:attribute name="versao" use="required">
+			<xs:simpleType>
+				<xs:restriction base="TVerConsSitCTe"/>
+			</xs:simpleType>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="TRetConsSitCTe">
 		<xs:annotation>
@@ -72,10 +76,10 @@
 	</xs:complexType>
 	<xs:simpleType name="TVerConsSitCTe">
 		<xs:annotation>
-			<xs:documentation> Tipo Versão do Consulta situação de CT-e - 1.04</xs:documentation>
+			<xs:documentation> Tipo Versão do Consulta situação de CT-e - 2.00</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:pattern value="1\.04"/>
+			<xs:pattern value="2\.00"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

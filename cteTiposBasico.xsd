@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-sofwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
-	<xs:include schemaLocation="tiposGeralCTe_v1.04.xsd"/>
+	<xs:include schemaLocation="tiposGeralCTe_v2.00.xsd"/>
 	<xs:complexType name="TCTe">
 		<xs:annotation>
 			<xs:documentation>Tipo Conhecimento de Transporte Eletrônico</xs:documentation>
@@ -120,10 +119,10 @@
 										<xs:annotation>
 											<xs:documentation>Forma de emissão do CT-e</xs:documentation>
 											<xs:documentation>Preencher com:
-											1 - Normal;
-											5 - Contingência FSDA;
-											7 - Autorização pela SVC-RS;
-											8 - Autorização pela SVC-SP</xs:documentation>
+1 - Normal;
+ 4-EPEC; 5 - Contingência FSDA;
+	7 - Autorização pela SVC-RS;
+ 8 - Autorização pela SVC-SP</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:string">
@@ -158,10 +157,9 @@
 										<xs:annotation>
 											<xs:documentation>Tipo do CT-e</xs:documentation>
 											<xs:documentation>Preencher com:
-											0 - CT-e Normal;
-											1 - CT-e de Complemento de Valores;
-											2 - CT-e de Anulação de Valores;
-											3 - CT-e Substituto</xs:documentation>
+	0 - CT-e Normal;
+ 1 - CT-e de Complemento de Valores;	2 - CT-e de Anulação;
+ 3 - CT-e Substituto</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="procEmi" type="TProcEmi">
@@ -218,22 +216,16 @@
 									<xs:element name="modal" type="TModTransp">
 										<xs:annotation>
 											<xs:documentation>Modal</xs:documentation>
-											<xs:documentation>Preencher com:
-											01-Rodoviário;
-											02-Aéreo;
-											03-Aquaviário;
-											04-Ferroviário;
-											05-Dutoviário</xs:documentation>
+											<xs:documentation>Preencher com:01-Rodoviário;
+02-Aéreo;03-Aquaviário;04-Ferroviário;05-Dutoviário;06-Multimodal;</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="tpServ">
 										<xs:annotation>
 											<xs:documentation>Tipo do Serviço</xs:documentation>
 											<xs:documentation>Preencher com: 
-											0 - Normal;
-											1 - Subcontratação;
-											2 - Redespacho;
-											3 - Redespacho Intermediário</xs:documentation>
+0 - Normal;1 - Subcontratação;
+2 - Redespacho;3 - Redespacho Intermediário; 4 - Serviço Vinculado a Multimodal</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:string">
@@ -242,6 +234,7 @@
 												<xs:enumeration value="1"/>
 												<xs:enumeration value="2"/>
 												<xs:enumeration value="3"/>
+												<xs:enumeration value="4"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
@@ -411,16 +404,10 @@ Informar os zeros não significativos.</xs:documentation>
 																</xs:restriction>
 															</xs:simpleType>
 														</xs:element>
-														<xs:element name="fone" minOccurs="0">
+														<xs:element name="fone" type="TFone" minOccurs="0">
 															<xs:annotation>
 																<xs:documentation>Telefone</xs:documentation>
 															</xs:annotation>
-															<xs:simpleType>
-																<xs:restriction base="xs:string">
-																	<xs:whiteSpace value="preserve"/>
-																	<xs:pattern value="[0-9]{7,12}"/>
-																</xs:restriction>
-															</xs:simpleType>
 														</xs:element>
 														<xs:element name="enderToma" type="TEndereco">
 															<xs:annotation>
@@ -966,16 +953,10 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
-									<xs:element name="fone" minOccurs="0">
+									<xs:element name="fone" type="TFone" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Telefone</xs:documentation>
 										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:whiteSpace value="preserve"/>
-												<xs:pattern value="[0-9]{7,12}"/>
-											</xs:restriction>
-										</xs:simpleType>
 									</xs:element>
 									<xs:element name="enderReme" type="TEndereco">
 										<xs:annotation>
@@ -990,224 +971,12 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 											<xs:restriction base="TEmail"/>
 										</xs:simpleType>
 									</xs:element>
-									<xs:choice>
-										<xs:element name="infNF" maxOccurs="unbounded">
-											<xs:annotation>
-												<xs:documentation>Informações das NF</xs:documentation>
-												<xs:documentation>Este grupo deve ser informado quando o documento originário for NF </xs:documentation>
-											</xs:annotation>
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element name="nRoma" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation>Número do Romaneio da NF</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="TString">
-																<xs:minLength value="1"/>
-																<xs:maxLength value="20"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="nPed" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation>Número do Pedido da NF</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="TString">
-																<xs:minLength value="1"/>
-																<xs:maxLength value="20"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="mod" type="TModNF">
-														<xs:annotation>
-															<xs:documentation>Modelo da Nota Fiscal</xs:documentation>
-															<xs:documentation>Preencher com: 
-01 - NF Modelo 01/1A e Avulsa; 
-04 - NF de Produtor</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="serie">
-														<xs:annotation>
-															<xs:documentation>Série</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="TString">
-																<xs:minLength value="1"/>
-																<xs:maxLength value="3"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="nDoc">
-														<xs:annotation>
-															<xs:documentation>Número </xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="TString">
-																<xs:minLength value="1"/>
-																<xs:maxLength value="20"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="dEmi" type="TData">
-														<xs:annotation>
-															<xs:documentation>Data de Emissão</xs:documentation>
-															<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="vBC" type="TDec_1302">
-														<xs:annotation>
-															<xs:documentation>Valor da Base de Cálculo do ICMS</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="vICMS" type="TDec_1302">
-														<xs:annotation>
-															<xs:documentation>Valor Total do ICMS</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="vBCST" type="TDec_1302">
-														<xs:annotation>
-															<xs:documentation>Valor da Base de Cálculo do ICMS ST</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="vST" type="TDec_1302">
-														<xs:annotation>
-															<xs:documentation>Valor Total do ICMS ST</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="vProd" type="TDec_1302">
-														<xs:annotation>
-															<xs:documentation>Valor Total dos Produtos</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="vNF" type="TDec_1302">
-														<xs:annotation>
-															<xs:documentation>Valor Total da NF</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="nCFOP" type="TCfop">
-														<xs:annotation>
-															<xs:documentation>CFOP Predominante</xs:documentation>
-															<xs:documentation>CFOP da NF ou, na existência de mais de um, predominância pelo critério de valor econômico.</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="nPeso" type="TDec_1203Opc" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation>Peso total em Kg</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="PIN" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation>PIN SUFRAMA</xs:documentation>
-															<xs:documentation>PIN atribuído pela SUFRAMA para a operação.</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:string">
-																<xs:whiteSpace value="preserve"/>
-																<xs:minLength value="2"/>
-																<xs:maxLength value="9"/>
-																<xs:pattern value="[1-9]{1}[0-9]{1,8}"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="locRet" type="TEndReEnt" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation>Local de retirada constante na NF</xs:documentation>
-															<xs:documentation>Informar apenas quando diferente do endereço do remetente.</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-												</xs:sequence>
-											</xs:complexType>
-										</xs:element>
-										<xs:element name="infNFe" maxOccurs="unbounded">
-											<xs:annotation>
-												<xs:documentation>Informações das NF-e</xs:documentation>
-											</xs:annotation>
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element name="chave" type="TChNFe">
-														<xs:annotation>
-															<xs:documentation>Chave de acesso da NF-e</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="PIN" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation>PIN SUFRAMA</xs:documentation>
-															<xs:documentation>PIN atribuído pela SUFRAMA para a operação.</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:string">
-																<xs:whiteSpace value="preserve"/>
-																<xs:minLength value="2"/>
-																<xs:maxLength value="9"/>
-																<xs:pattern value="[1-9]{1}[0-9]{1,8}"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-												</xs:sequence>
-											</xs:complexType>
-										</xs:element>
-										<xs:element name="infOutros" maxOccurs="unbounded">
-											<xs:annotation>
-												<xs:documentation>Informações dos demais documentos</xs:documentation>
-											</xs:annotation>
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element name="tpDoc">
-														<xs:annotation>
-															<xs:documentation>Tipo de documento originário</xs:documentation>
-															<xs:documentation>Preencher com:
-															00 - Declaração;
-															10 - Dutoviário;
-															99 - Outros</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:string">
-																<xs:whiteSpace value="preserve"/>
-																<xs:enumeration value="00"/>
-																<xs:enumeration value="10"/>
-																<xs:enumeration value="99"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="descOutros" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation>Descrição quando se tratar de 99-Outros</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="TString">
-																<xs:minLength value="1"/>
-																<xs:maxLength value="100"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="nDoc" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation>Número </xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="TString">
-																<xs:minLength value="1"/>
-																<xs:maxLength value="20"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="dEmi" type="TData" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation>Data de Emissão</xs:documentation>
-															<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="vDocFisc" type="TDec_1302Opc" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation>Valor do documento</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-												</xs:sequence>
-											</xs:complexType>
-										</xs:element>
-									</xs:choice>
+									<xs:element name="locColeta" type="TEndReEnt" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Local da Coleta</xs:documentation>
+											<xs:documentation>Informar apenas quando diferente do endereço do remetente.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
@@ -1249,16 +1018,10 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
-									<xs:element name="fone" minOccurs="0">
+									<xs:element name="fone" type="TFone" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Telefone</xs:documentation>
 										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:whiteSpace value="preserve"/>
-												<xs:pattern value="[0-9]{7,12}"/>
-											</xs:restriction>
-										</xs:simpleType>
 									</xs:element>
 									<xs:element name="enderExped" type="TEndereco">
 										<xs:annotation>
@@ -1311,16 +1074,10 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
-									<xs:element name="fone" minOccurs="0">
+									<xs:element name="fone" type="TFone" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Telefone</xs:documentation>
 										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:whiteSpace value="preserve"/>
-												<xs:pattern value="[0-9]{7,12}"/>
-											</xs:restriction>
-										</xs:simpleType>
 									</xs:element>
 									<xs:element name="enderReceb" type="TEndereco">
 										<xs:annotation>
@@ -1377,16 +1134,10 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
-									<xs:element name="fone" minOccurs="0">
+									<xs:element name="fone" type="TFone" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Telefone</xs:documentation>
 										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:whiteSpace value="preserve"/>
-												<xs:pattern value="[0-9]{7,12}"/>
-											</xs:restriction>
-										</xs:simpleType>
 									</xs:element>
 									<xs:element name="ISUF" minOccurs="0">
 										<xs:annotation>
@@ -1543,11 +1294,11 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 													<xs:element name="infQ" maxOccurs="unbounded">
 														<xs:annotation>
 															<xs:documentation>Informações de quantidades da Carga do CT-e</xs:documentation>
-															<xs:documentation>Para o modal aéreo é obrigatório o preenchimento desse campo pelo menos 3 vezes.
-								1 - Peso Bruto, sempre em quilogramas (obrigatório);
-2 - Peso Cubado; sempre em quilogramas (obrigatório);
+															<xs:documentation>Para o Aéreo é obrigatório o preenchimento desse campo da seguinte forma.
+1 - Peso Bruto, sempre em quilogramas (obrigatório);
+2 - Peso Cubado; sempre em quilogramas;
 3 - Quantidade de volumes, sempre em unidades (obrigatório);
-4 - Cubagem, sempre em metros cúbicos (obrigatório apenas quando for impossível preencher as dimensões da(s) embalagem(ens) na tag #12 do leiaute do modal aéreo).</xs:documentation>
+4 - Cubagem, sempre em metros cúbicos (obrigatório apenas quando for impossível preencher as dimensões da(s) embalagem(ens) na tag #12 do leiaute do Aéreo).</xs:documentation>
 														</xs:annotation>
 														<xs:complexType>
 															<xs:sequence>
@@ -1598,44 +1349,286 @@ PESO BRUTO, PESO DECLARADO, PESO CUBADO, PESO AFORADO, PESO AFERIDO, PESO BASE D
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>
-										<xs:element name="contQt" minOccurs="0" maxOccurs="unbounded">
+										<xs:element name="infDoc" minOccurs="0">
 											<xs:annotation>
-												<xs:documentation>Informações dos containeres/ULD</xs:documentation>
-												<xs:documentation>Dispositivo de carga unitizada (Unit Load Device - ULD) significa todo tipo de contêiner de carga, contêiner de avião, palete de aeronave com rede ou palete de aeronave com rede sobre um iglu. </xs:documentation>
+												<xs:documentation>Informações dos documentos transportados pelo CT-e
+Opcional para Redespacho Intermediario e Serviço vinculado a multimodal.</xs:documentation>
+												<xs:documentation>Poderá não ser informado para os CT-e de redespacho intermediário. Nos demais casos deverá sempre ser informado.</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="nCont" type="TContainer">
-														<xs:annotation>
-															<xs:documentation>Número do Container/ULD</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="lacContQt" minOccurs="0" maxOccurs="unbounded">
-														<xs:annotation>
-															<xs:documentation>Lacres dos containeres/ULD</xs:documentation>
-														</xs:annotation>
-														<xs:complexType>
-															<xs:sequence>
-																<xs:element name="nLacre">
-																	<xs:annotation>
-																		<xs:documentation>Número do lacre</xs:documentation>
-																	</xs:annotation>
-																	<xs:simpleType>
-																		<xs:restriction base="TString">
-																			<xs:minLength value="1"/>
-																			<xs:maxLength value="20"/>
-																		</xs:restriction>
-																	</xs:simpleType>
-																</xs:element>
-															</xs:sequence>
-														</xs:complexType>
-													</xs:element>
-													<xs:element name="dPrev" type="TData" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation>Data prevista de entrega</xs:documentation>
-															<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
-														</xs:annotation>
-													</xs:element>
+													<xs:choice>
+														<xs:element name="infNF" maxOccurs="unbounded">
+															<xs:annotation>
+																<xs:documentation>Informações das NF</xs:documentation>
+																<xs:documentation>Este grupo deve ser informado quando o documento originário for NF </xs:documentation>
+															</xs:annotation>
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="nRoma" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>Número do Romaneio da NF</xs:documentation>
+																		</xs:annotation>
+																		<xs:simpleType>
+																			<xs:restriction base="TString">
+																				<xs:minLength value="1"/>
+																				<xs:maxLength value="20"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:element>
+																	<xs:element name="nPed" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>Número do Pedido da NF</xs:documentation>
+																		</xs:annotation>
+																		<xs:simpleType>
+																			<xs:restriction base="TString">
+																				<xs:minLength value="1"/>
+																				<xs:maxLength value="20"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:element>
+																	<xs:element name="mod" type="TModNF">
+																		<xs:annotation>
+																			<xs:documentation>Modelo da Nota Fiscal</xs:documentation>
+																			<xs:documentation>Preencher com: 
+01 - NF Modelo 01/1A e Avulsa; 
+04 - NF de Produtor</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="serie">
+																		<xs:annotation>
+																			<xs:documentation>Série</xs:documentation>
+																		</xs:annotation>
+																		<xs:simpleType>
+																			<xs:restriction base="TString">
+																				<xs:minLength value="1"/>
+																				<xs:maxLength value="3"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:element>
+																	<xs:element name="nDoc">
+																		<xs:annotation>
+																			<xs:documentation>Número </xs:documentation>
+																		</xs:annotation>
+																		<xs:simpleType>
+																			<xs:restriction base="TString">
+																				<xs:minLength value="1"/>
+																				<xs:maxLength value="20"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:element>
+																	<xs:element name="dEmi" type="TData">
+																		<xs:annotation>
+																			<xs:documentation>Data de Emissão</xs:documentation>
+																			<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="vBC" type="TDec_1302">
+																		<xs:annotation>
+																			<xs:documentation>Valor da Base de Cálculo do ICMS</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="vICMS" type="TDec_1302">
+																		<xs:annotation>
+																			<xs:documentation>Valor Total do ICMS</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="vBCST" type="TDec_1302">
+																		<xs:annotation>
+																			<xs:documentation>Valor da Base de Cálculo do ICMS ST</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="vST" type="TDec_1302">
+																		<xs:annotation>
+																			<xs:documentation>Valor Total do ICMS ST</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="vProd" type="TDec_1302">
+																		<xs:annotation>
+																			<xs:documentation>Valor Total dos Produtos</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="vNF" type="TDec_1302">
+																		<xs:annotation>
+																			<xs:documentation>Valor Total da NF</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="nCFOP" type="TCfop">
+																		<xs:annotation>
+																			<xs:documentation>CFOP Predominante</xs:documentation>
+																			<xs:documentation>CFOP da NF ou, na existência de mais de um, predominância pelo critério de valor econômico.</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="nPeso" type="TDec_1203Opc" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>Peso total em Kg</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="PIN" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>PIN SUFRAMA</xs:documentation>
+																			<xs:documentation>PIN atribuído pela SUFRAMA para a operação.</xs:documentation>
+																		</xs:annotation>
+																		<xs:simpleType>
+																			<xs:restriction base="xs:string">
+																				<xs:whiteSpace value="preserve"/>
+																				<xs:minLength value="2"/>
+																				<xs:maxLength value="9"/>
+																				<xs:pattern value="[1-9]{1}[0-9]{1,8}"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:element>
+																	<xs:element name="dPrev" type="TData" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>Data prevista de entrega</xs:documentation>
+																			<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:choice>
+																		<xs:element name="infUnidTransp" type="TUnidadeTransp" minOccurs="0" maxOccurs="unbounded">
+																			<xs:annotation>
+																				<xs:documentation>Informações das Unidades de Transporte (Carreta/Reboque/Vagão)</xs:documentation>
+																				<xs:documentation>Dispositivo de carga utilizada (Unit Load Device - ULD) significa todo tipo de contêiner de carga, vagão, contêiner de avião, palete de aeronave com rede ou palete de aeronave com rede sobre um iglu. </xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="infUnidCarga" type="TUnidCarga" minOccurs="0" maxOccurs="unbounded">
+																			<xs:annotation>
+																				<xs:documentation>Informações das Unidades de Carga (Containeres/ULD/Outros)</xs:documentation>
+																				<xs:documentation>Dispositivo de carga utilizada (Unit Load Device - ULD) significa todo tipo de contêiner de carga, vagão, contêiner de avião, palete de aeronave com rede ou palete de aeronave com rede sobre um iglu. </xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:choice>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+														<xs:element name="infNFe" maxOccurs="unbounded">
+															<xs:annotation>
+																<xs:documentation>Informações das NF-e</xs:documentation>
+															</xs:annotation>
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="chave" type="TChNFe">
+																		<xs:annotation>
+																			<xs:documentation>Chave de acesso da NF-e</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="PIN" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>PIN SUFRAMA</xs:documentation>
+																			<xs:documentation>PIN atribuído pela SUFRAMA para a operação.</xs:documentation>
+																		</xs:annotation>
+																		<xs:simpleType>
+																			<xs:restriction base="xs:string">
+																				<xs:whiteSpace value="preserve"/>
+																				<xs:minLength value="2"/>
+																				<xs:maxLength value="9"/>
+																				<xs:pattern value="[1-9]{1}[0-9]{1,8}"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:element>
+																	<xs:element name="dPrev" type="TData" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>Data prevista de entrega</xs:documentation>
+																			<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:choice>
+																		<xs:element name="infUnidTransp" type="TUnidadeTransp" minOccurs="0" maxOccurs="unbounded">
+																			<xs:annotation>
+																				<xs:documentation>Informações das Unidades de Transporte (Carreta/Reboque/Vagão)</xs:documentation>
+																				<xs:documentation>Dispositivo de carga utilizada (Unit Load Device - ULD) significa todo tipo de contêiner de carga, vagão, contêiner de avião, palete de aeronave com rede ou palete de aeronave com rede sobre um iglu. </xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="infUnidCarga" type="TUnidCarga" minOccurs="0" maxOccurs="unbounded">
+																			<xs:annotation>
+																				<xs:documentation>Informações das Unidades de Carga (Containeres/ULD/Outros)</xs:documentation>
+																				<xs:documentation>Dispositivo de carga utilizada (Unit Load Device - ULD) significa todo tipo de contêiner de carga, vagão, contêiner de avião, palete de aeronave com rede ou palete de aeronave com rede sobre um iglu. </xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:choice>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+														<xs:element name="infOutros" maxOccurs="unbounded">
+															<xs:annotation>
+																<xs:documentation>Informações dos demais documentos</xs:documentation>
+															</xs:annotation>
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="tpDoc">
+																		<xs:annotation>
+																			<xs:documentation>Tipo de documento originário</xs:documentation>
+																			<xs:documentation>Preencher com:
+															00 - Declaração;
+															10 - Dutoviário;
+															99 - Outros</xs:documentation>
+																		</xs:annotation>
+																		<xs:simpleType>
+																			<xs:restriction base="xs:string">
+																				<xs:whiteSpace value="preserve"/>
+																				<xs:enumeration value="00"/>
+																				<xs:enumeration value="10"/>
+																				<xs:enumeration value="99"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:element>
+																	<xs:element name="descOutros" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>Descrição quando se tratar de 99-Outros</xs:documentation>
+																		</xs:annotation>
+																		<xs:simpleType>
+																			<xs:restriction base="TString">
+																				<xs:minLength value="1"/>
+																				<xs:maxLength value="100"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:element>
+																	<xs:element name="nDoc" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>Número </xs:documentation>
+																		</xs:annotation>
+																		<xs:simpleType>
+																			<xs:restriction base="TString">
+																				<xs:minLength value="1"/>
+																				<xs:maxLength value="20"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:element>
+																	<xs:element name="dEmi" type="TData" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>Data de Emissão</xs:documentation>
+																			<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="vDocFisc" type="TDec_1302Opc" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>Valor do documento</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="dPrev" type="TData" minOccurs="0">
+																		<xs:annotation>
+																			<xs:documentation>Data prevista de entrega</xs:documentation>
+																			<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:choice>
+																		<xs:element name="infUnidTransp" type="TUnidadeTransp" minOccurs="0" maxOccurs="unbounded">
+																			<xs:annotation>
+																				<xs:documentation>Informações das Unidades de Transporte (Carreta/Reboque/Vagão)</xs:documentation>
+																				<xs:documentation>Dispositivo de carga utilizada (Unit Load Device - ULD) significa todo tipo de contêiner de carga, vagão, contêiner de avião, palete de aeronave com rede ou palete de aeronave com rede sobre um iglu. </xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="infUnidCarga" type="TUnidCarga" minOccurs="0" maxOccurs="unbounded">
+																			<xs:annotation>
+																				<xs:documentation>Informações das Unidades de Carga (Containeres/ULD/Outros)</xs:documentation>
+																				<xs:documentation>Dispositivo de carga utilizada (Unit Load Device - ULD) significa todo tipo de contêiner de carga, vagão, contêiner de avião, palete de aeronave com rede ou palete de aeronave com rede sobre um iglu. </xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:choice>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+													</xs:choice>
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>
@@ -1889,7 +1882,7 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 													<xs:simpleType>
 														<xs:restriction base="xs:string">
 															<xs:whiteSpace value="preserve"/>
-															<xs:pattern value="1\.(0[4-9]|[1-9][0-9])"/>
+															<xs:pattern value="2\.(0[0-9]|[1-9][0-9])"/>
 														</xs:restriction>
 													</xs:simpleType>
 												</xs:attribute>
@@ -1912,16 +1905,14 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 														<xs:simpleType>
 															<xs:restriction base="xs:string">
 																<xs:whiteSpace value="preserve"/>
-																<xs:pattern value="[1-9]{1}[0-9]{0,3}|ND"/>
+																<xs:pattern value="[0-9]{4}|ND"/>
 															</xs:restriction>
 														</xs:simpleType>
 													</xs:element>
-													<xs:element name="xNomeAE">
+													<xs:element name="xNomeAE" minOccurs="0">
 														<xs:annotation>
 															<xs:documentation>Nome apropriado para embarque do produto</xs:documentation>
-															<xs:documentation>Ver a legislação de transporte de produtos perigosos aplicadas ao modal
-															Para o modal aéreo o nome apropriado para transporte deve ser em inglês.
-															Para o modal rodoviário e ferroviário, o nome apropriado deve ser em português.</xs:documentation>
+															<xs:documentation>Ver a legislação de transporte de produtos perigosos aplicada ao modo de transporte</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
 															<xs:restriction base="TString">
@@ -1930,7 +1921,7 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 															</xs:restriction>
 														</xs:simpleType>
 													</xs:element>
-													<xs:element name="xClaRisco">
+													<xs:element name="xClaRisco" minOccurs="0">
 														<xs:annotation>
 															<xs:documentation>Classe ou subclasse/divisão, e risco subsidiário/risco secundário</xs:documentation>
 															<xs:documentation>Ver a legislação de transporte de produtos perigosos aplicadas ao modal</xs:documentation>
@@ -2247,7 +2238,7 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="infCteComp" maxOccurs="10">
+							<xs:element name="infCteComp">
 								<xs:annotation>
 									<xs:documentation>Detalhamento do CT-e complementado</xs:documentation>
 								</xs:annotation>
@@ -2330,7 +2321,7 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 							</xs:element>
 							<xs:element name="infCteAnu">
 								<xs:annotation>
-									<xs:documentation>Detalhamento do CT-e do tipo Anulação de Valores</xs:documentation>
+									<xs:documentation>Detalhamento do CT-e do tipo Anulação</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
@@ -2354,11 +2345,14 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 							</xs:element>
 						</xs:choice>
 					</xs:sequence>
-					<xs:attribute name="versao" type="TVerCTe" use="required">
+					<xs:attribute name="versao" use="required">
 						<xs:annotation>
 							<xs:documentation>Versão do leiaute</xs:documentation>
 							<xs:documentation>Ex: "1.04"</xs:documentation>
 						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="TVerCTe"/>
+						</xs:simpleType>
 					</xs:attribute>
 					<xs:attribute name="Id" use="required">
 						<xs:annotation>
@@ -2530,16 +2524,10 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 					<xs:documentation>Sigla da UF</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="fone" minOccurs="0">
+			<xs:element name="fone" type="TFone" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Telefone</xs:documentation>
 				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:whiteSpace value="preserve"/>
-						<xs:pattern value="[0-9]{7,12}"/>
-					</xs:restriction>
-				</xs:simpleType>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
@@ -2842,16 +2830,10 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="fone" minOccurs="0">
+			<xs:element name="fone" type="TFone" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Telefone</xs:documentation>
 				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:whiteSpace value="preserve"/>
-						<xs:pattern value="[0-9]{7,10}"/>
-					</xs:restriction>
-				</xs:simpleType>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
@@ -3239,6 +3221,107 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 			</xs:element>
 		</xs:choice>
 	</xs:complexType>
+	<xs:complexType name="TUnidadeTransp">
+		<xs:annotation>
+			<xs:documentation>Tipo Dados Unidade de Transporte</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpUnidTransp" type="TtipoUnidTransp">
+				<xs:annotation>
+					<xs:documentation>Tipo da Unidade de Transporte</xs:documentation>
+					<xs:documentation>1 - Rodoviário Tração
+2 - Rodoviário Reboque
+3 - Navio
+4 - Balsa
+5 - Aeronave
+6 - Vagão
+7 - Outros</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="idUnidTransp" type="TContainer">
+				<xs:annotation>
+					<xs:documentation>Identificação da Unidade de Transporte</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lacUnidTransp" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Lacres das Unidades de Transporte</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="nLacre">
+							<xs:annotation>
+								<xs:documentation>Número do lacre</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="TString">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="20"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="infUnidCarga" type="TUnidCarga" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Informações das Unidades de Carga (Containeres/ULD/Outros)</xs:documentation>
+					<xs:documentation>Dispositivo de carga utilizada (Unit Load Device - ULD) significa todo tipo de contêiner de carga, vagão, contêiner de avião, palete de aeronave com rede ou palete de aeronave com rede sobre um iglu. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qtdRat" type="TDec_0302" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Quantidade rateada (Peso,Volume)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TUnidCarga">
+		<xs:annotation>
+			<xs:documentation>Tipo Dados Unidade de Carga</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpUnidCarga" type="TtipoUnidCarga">
+				<xs:annotation>
+					<xs:documentation>Tipo da Unidade de Carga</xs:documentation>
+					<xs:documentation>1 - Container
+2 - ULD
+3 - Pallet
+4 - Outros</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="idUnidCarga" type="TContainer">
+				<xs:annotation>
+					<xs:documentation>Identificação da Unidade de Carga</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lacUnidCarga" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Lacres das Unidades de Carga</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="nLacre">
+							<xs:annotation>
+								<xs:documentation>Número do lacre</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="TString">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="20"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="qtdRat" type="TDec_0302" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Quantidade rateada (Peso,Volume)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:simpleType name="TCfop">
 		<xs:annotation>
 			<xs:documentation>Tipo CFOP</xs:documentation>
@@ -3562,6 +3645,7 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 			<xs:enumeration value="03"/>
 			<xs:enumeration value="04"/>
 			<xs:enumeration value="05"/>
+			<xs:enumeration value="06"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TProcEmi">
@@ -3591,7 +3675,7 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
-			<xs:pattern value="1\.04"/>
+			<xs:pattern value="2\.00"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>
